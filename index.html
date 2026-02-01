@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday My Blood 🎉🔥</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0d001a, #1a0033, #001a33);
+      color: #e0f7ff;
+      min-height: 100vh;
+      padding: clamp(12px, 4vw, 20px);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    canvas#particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      perspective: 1200px; /* Enables 3D space */
+      transform-style: preserve-3d;
+    }
+
+    .paper-wrap {
+      transform-origin: top center;
+      transform: rotateX(85deg) scale(0.92); /* Starts folded/closed */
+      opacity: 0;
+      transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: clamp(1rem, 5vw, 2.5rem);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      border: 1px solid rgba(0,240,255,0.15);
+    }
+
+    .unfolded .paper-wrap {
+      transform: rotateX(0deg) scale(1);
+      opacity: 1;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 9vw, 4.8rem);
+      margin: clamp(1.5rem, 8vw, 3rem) 0 clamp(1rem, 5vw, 1.8rem);
+      color: #00f0ff;
+      text-shadow: 0 0 35px rgba(0,240,255,0.7);
+    }
+
+    .fire-pulse {
+      display: inline-block;
+      animation: pulse 1.7s infinite ease-in-out;
+      color: #ff00aa;
+      text-shadow: 0 0 25px #ff00aa;
+    }
+
+    .subtitle {
+      font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+      margin-bottom: clamp(1.5rem, 6vw, 3rem);
+      color: #a5f3fc;
+      opacity: 0.95;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(12px, 3vw, 24px);
+      margin: clamp(2rem, 8vw, 4rem) 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      border: 3px solid rgba(0,240,255,0.22);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
+
+    .gallery img:hover,
+    .gallery img.active {
+      transform: scale(1.05) rotate(1.8deg);
+      border-color: #00f0ff;
+      box-shadow: 0 20px 50px rgba(0,240,255,0.4);
+    }
+
+    .quote {
+      font-size: clamp(1.15rem, 4.2vw, 1.4rem);
+      font-style: italic;
+      margin: clamp(2rem, 7vw, 3.5rem) 1rem;
+      padding: clamp(1.2rem, 5vw, 2rem);
+      background: rgba(0,240,255,0.07);
+      border-radius: 16px;
+      border-left: 5px solid #ff00aa;
+      color: #e0f7ff;
+    }
+
+    .messages {
+      font-size: clamp(1.1rem, 4vw, 1.35rem);
+      margin: clamp(1.8rem, 6vw, 3rem) 1rem;
+      min-height: 5em;
+      color: #00f0ff;
+      opacity: 0.92;
+      font-weight: 500;
+      text-shadow: 0 0 12px rgba(0,240,255,0.4);
+    }
+
+    .footer {
+      margin: clamp(3rem, 10vw, 5rem) 0 clamp(2rem, 6vw, 3.5rem);
+      font-size: clamp(1rem, 3.8vw, 1.2rem);
+      color: #a5f3fc;
+      opacity: 0.9;
+    }
+
+    .signature {
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
+      color: #ff00aa;
+      margin-top: 2rem;
+      min-height: 2em;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #ff00aa;
+      width: 0;
+      animation: typing 3s steps(12, end) forwards 3s, blink 0.7s step-end infinite 6s;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.14); }
+    }
+
+    @media (max-width: 380px) {
+      body { padding: 10px; }
+      .gallery { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+  <div class="paper-wrap">
+    <h1 id="typewriter">Happy Birthday My Blood! <span class="fire-pulse">🎉🔥</span></h1>
+    <p class="subtitle">Another level, bigger moves, no cap 🫂💨</p>
+
+    <div class="gallery">
+      <img src="https://i.imgur.com/YOUR_FIRST_PIC_LINK_HERE.jpg" alt="Squad at MITA">
+      <img src="https://i.imgur.com/YOUR_SECOND_PIC_LINK_HERE.jpg" alt="Solo drip clean">
+      <img src="https://i.imgur.com/YOUR_THIRD_PIC_LINK_HERE.jpg" alt="Full crew energy">
+    </div>
+
+    <div class="quote">
+      "3 wise men... and then there is me 😎<br><br>
+      But real talk — you're the glue, the energy, the one who makes everything click.<br>
+      This year we go collect everything. More wins, more gist, more vibes. 🥂🔥"
+    </div>
+
+    <div class="messages" id="cycling-msg"></div>
+
+    <div class="footer">
+      From your guy since day one → Stay winning, stay solid in Akwa-Ibom style<br>
+      Love & respect always
+    </div>
+
+    <div class="signature">From Kelly</div>
+  </div>
+</div>
+
+<script>
+// Unfold paper on load
+setTimeout(() => {
+  document.body.classList.add('unfolded');
+}, 600);
+
+// Particles (cyan/pink)
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const particles = [];
+const count = Math.min(80, window.innerWidth / 8);
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height * 0.6;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 1.2 - 0.6;
+    this.speedY = Math.random() * 0.7 + 0.3;
+    this.color = `hsla(${Math.random()*60 + 180}, 90%, 65%, ${Math.random()*0.4 + 0.3})`;
+  }
+  update() {
+    this.x += this.speedX; this.y += this.speedY;
+    if (this.y > canvas.height || this.x < -20 || this.x > canvas.width + 20) this.reset();
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+  }
+}
+for (let i = 0; i < count; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Confetti
+function launchConfetti() {
+  const cnt = Math.min(160, window.innerWidth / 3);
+  const colors = ['#00f0ff', '#ff00aa', '#39ff14', '#ffea00', '#ff3366'];
+  for (let i = 0; i < cnt; i++) {
+    const c = document.createElement('div');
+    Object.assign(c.style, {
+      position: 'fixed', width: '8px', height: '14px',
+      background: colors[Math.floor(Math.random()*colors.length)],
+      left: Math.random()*100 + 'vw', top: '-30px',
+      opacity: Math.random()*0.7 + 0.3,
+      transform: `rotate(${Math.random()*360}deg)`,
+      pointerEvents: 'none', zIndex: '999'
+    });
+    document.body.appendChild(c);
+    const dur = Math.random()*3 + 2.5;
+    c.animate([
+      { transform: 'translateY(-30px) rotate(0deg)', opacity:1 },
+      { transform: `translateY(${window.innerHeight+80}px) rotate(${Math.random()*1440-720}deg)`, opacity:0 }
+    ], { duration: dur*1000, easing: 'cubic-bezier(0.22,0.61,0.36,1)' }).onfinish = () => c.remove();
+  }
+}
+setTimeout(launchConfetti, 1800); // After unfold
+
+// Photo zoom
+document.querySelectorAll('.gallery img').forEach(img => {
+  img.addEventListener('click', () => {
+    img.classList.toggle('active');
+    setTimeout(() => img.classList.remove('active'), 2800);
+  });
+});
+
+// Cycling messages (Akwa-Ibom flavor)
+const msgs = [
+  "Age is just XP — you just leveled up 🆙",
+  "Not older… just more limited edition 🔥",
+  "This year the bag is heavier 📈",
+  "Akwa-Ibom to worldwide — we dey move 🌍",
+  "Your glow-up season officially started ✨",
+  "More vibes, zero dulling",
+  "Plot twist: best chapter incoming"
+];
+const msgEl = document.getElementById('cycling-msg');
+let idx = 0;
+function next() {
+  msgEl.style.opacity = '0';
+  setTimeout(() => {
+    msgEl.textContent = msgs[idx];
+    msgEl.style.opacity = '0.92';
+    idx = (idx + 1) % msgs.length;
+  }, 600);
+}
+next();
+setInterval(next, 7200);
+</script>
+</body>
+</html>
